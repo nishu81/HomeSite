@@ -82,10 +82,21 @@ public class HomePage {
         linkPersonalInsurance.click();
     }
 
-    //Start quote by Zip
+    //Start quote by option by Zip - Zip code should be 5 digit
+    public void startAQuoteByZipForAnArea(String insuranceArea,String code) {
+        driver.findElement(By.xpath("//input[@value='"+insuranceArea+"']/../label")).click();
+        zipCodeText.sendKeys(code);
+        String codeStr = zipCodeText.getAttribute("value");
+        int codeLen = codeStr.length();
+        Assert.assertEquals(codeLen, 5);
+        buttonSubmit.click();
+    }
+
+    //Start quote default selection by Zip - Zip code should be 5 digit
     public void startAQuoteByZip(String code) {
         zipCodeText.sendKeys(code);
-        String codeLen = zipCodeText.getAttribute("value");
+        String codeStr = zipCodeText.getAttribute("value");
+        int codeLen = codeStr.length();
         Assert.assertEquals(codeLen, 5);
         buttonSubmit.click();
     }

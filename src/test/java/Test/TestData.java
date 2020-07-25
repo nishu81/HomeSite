@@ -1,6 +1,7 @@
 package Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TestData {
 
@@ -21,5 +22,17 @@ public class TestData {
         ar.add("Personal Insurance");
         ar.add("Commercial Insurance");
         return ar;
+    }
+
+    //Data for New Customer Registration
+    public HashMap<String, String> custMap() {
+        HashMap<String, String> cust = new HashMap<String, String>();
+        cust.put("FirstName", "James");
+        cust.put("LastName", "Roy");
+        cust.put("DateOfBirth", "04/13/1982");
+        cust.put("Email", "James1981@go.com");
+        cust.put("PhoneNumber", "888-888-8888");
+
+        return cust;
     }
 }

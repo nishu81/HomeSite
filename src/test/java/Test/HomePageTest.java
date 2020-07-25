@@ -2,6 +2,7 @@ package Test;
 
 import Browser.LaunchBrowser;
 import Pages.HomePage;
+import Pages.HomeQuotePage;
 import Pages.PersonalLoginPage;
 import Utils.Helpers;
 import org.openqa.selenium.WebDriver;
@@ -55,13 +56,21 @@ public class HomePageTest extends TestBase {
         Assert.assertTrue(personalLoginPage.isLoginButtonDisplayed());
     }
 
-    //Start a new quote by valid zip code
+    //Start a new quote by valid zip code, user selects an area for Insurance such as Condo
     @Test
-    public void startQuoteForHome() throws InterruptedException {
+    public void startQuoteForCondo() throws InterruptedException {
         homePage = new HomePage(driver);
-        homePage.startAQuoteByZip("98012");
+        homePage.startAQuoteByZipForAnArea("condo","98012");
     }
 
+    //Start a new quote by valid zip code, user doesn't select an option , by default Home is selected
+    @Test
+    public void startQuoteForDefault() throws InterruptedException {
+        homePage = new HomePage(driver);
+        homePage.startAQuoteByZip("98012");
+        homeQuotePage = new HomeQuotePage(driver);
+        Assert.assertTrue(homeQuotePage.homeInsQuoteTextDisplayed());
+    }
     @AfterMethod
     public void tearDown(){
         helpers = new Helpers(driver);
