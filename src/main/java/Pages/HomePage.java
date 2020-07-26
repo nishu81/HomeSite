@@ -37,6 +37,10 @@ public class HomePage {
     @FindBy(xpath = "(//input[@id='submitGo'])[1]")
     WebElement buttonSubmit;
 
+    @FindBy(xpath = "//div[@class='spinner spinner--processing']")
+    WebElement spinner;
+
+
 
     //Expect 7 icons to be shown
     public Boolean iconsAreDisplayed(ArrayList<String> menuOptions) throws InterruptedException {
@@ -83,13 +87,14 @@ public class HomePage {
     }
 
     //Start quote by option by Zip - Zip code should be 5 digit
-    public void startAQuoteByZipForAnArea(String insuranceArea,String code) {
-        driver.findElement(By.xpath("//input[@value='"+insuranceArea+"']/../label")).click();
+    public void startAQuoteByZipForAnArea(String insuranceArea, String code) {
+        driver.findElement(By.xpath("//input[@value='" + insuranceArea + "']/../label")).click();
         zipCodeText.sendKeys(code);
         String codeStr = zipCodeText.getAttribute("value");
         int codeLen = codeStr.length();
         Assert.assertEquals(codeLen, 5);
         buttonSubmit.click();
+        helpers.waitTillInvisible(spinner);
     }
 
     //Start quote default selection by Zip - Zip code should be 5 digit
@@ -99,5 +104,20 @@ public class HomePage {
         int codeLen = codeStr.length();
         Assert.assertEquals(codeLen, 5);
         buttonSubmit.click();
+        helpers.waitTillInvisible(spinner);
+    }
+
+    // Test
+    public void doTest(ArrayList<String> insOptions, String code) throws InterruptedException {
+        for (String insuranceChoice : insOptions) {
+            helpers.waitIsPresent(driver.findElement(By.xpath("//input[@value='" + insuranceChoice + "']/..//label")));
+            driver.findElement(By.xpath("//input[@value='" + insuranceChoice + "']/..//label")).click();
+            driver.findElement(By.xpath("(//input[@id='zip'])[1]")).sendKeys("98012");
+            // Thread.sleep(10000);
+            driver.findElement(By.xpath("(//input[@id='submitGo'])[1]")).click();
+            String urlValue = driver.getCurrentUrl();
+            Assert.assertTrue(urlValue.contains(insuranceChoice));
+            driver.navigate().back();
+        }
     }
 }

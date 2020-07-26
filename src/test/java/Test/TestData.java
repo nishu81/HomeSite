@@ -1,9 +1,19 @@
 package Test;
 
+import Pages.HomeQuotePage;
+import org.openqa.selenium.WebDriver;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TestData {
+    private WebDriver driver;
+    HomeQuotePage hmq;
+
+    public TestData(WebDriver driver) {
+        this.driver = driver;
+        hmq = new HomeQuotePage(driver);
+    }
 
     public ArrayList<String> getHomePageOptions7() {
         ArrayList<String> ar = new ArrayList<String>();
@@ -32,7 +42,38 @@ public class TestData {
         cust.put("DateOfBirth", "04/13/1982");
         cust.put("Email", "James1981@go.com");
         cust.put("PhoneNumber", "888-888-8888");
-
+        cust.put("PropertyAddressLine1", "12111 kames road");
+        cust.put("PropertyCity", "Mill Creek");
+        cust.put("PropertyState", "WA");
         return cust;
     }
+
+    //Validate by insurance area choice
+    public ArrayList<String> getTitleByChoice() {
+        ArrayList<String> ar = new ArrayList<String>();
+        ar.add("home");
+        ar.add("renters");
+        ar.add("condo");
+        return ar;
+    }
+
+    //Validate by invalid Date of Birth
+    public ArrayList<String> getinvalidData() {
+        ArrayList<String> ar = new ArrayList<String>();
+        ar.add("23/05");
+        ar.add("07/12");
+        ar.add("07/12/20");
+        return ar;
+    }
+
+    //Validate by invalid Phone number
+    public ArrayList<String> getinvalidPhone() {
+        ArrayList<String> ar = new ArrayList<String>();
+        ar.add("abc");
+        ar.add("#44");
+        ar.add("952");
+        return ar;
+    }
+
+
 }

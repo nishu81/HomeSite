@@ -34,7 +34,7 @@ public class HomePageTest extends TestBase {
     //There should be 7 choices for customer
     @Test
     public void insuranceOptionsDisplayed() throws InterruptedException {
-        testData = new TestData();
+        testData = new TestData(driver);
         homePage = new HomePage(driver);
         Assert.assertTrue(homePage.iconsAreDisplayed(testData.getHomePageOptions7()));
     }
@@ -42,7 +42,7 @@ public class HomePageTest extends TestBase {
     //Upon clicking on Login- users should get 2 login choices
     @Test
     public void loginAsCommercialOrPerson() throws InterruptedException {
-        testData = new TestData();
+        testData = new TestData(driver);
         homePage = new HomePage(driver);
         Assert.assertTrue(testData.get2Logins().equals(expected2LoginValues()));
     }
@@ -71,6 +71,15 @@ public class HomePageTest extends TestBase {
         homeQuotePage = new HomeQuotePage(driver);
         Assert.assertTrue(homeQuotePage.homeInsQuoteTextDisplayed());
     }
+
+    //Test and see for every selection we get expected title
+    @Test
+    public void startDemo() throws InterruptedException {
+        homePage = new HomePage(driver);
+        testData = new TestData(driver);
+       homePage.doTest(testData.getTitleByChoice(),"98012");
+    }
+
     @AfterMethod
     public void tearDown(){
         helpers = new Helpers(driver);
