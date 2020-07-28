@@ -1,9 +1,6 @@
 package Utils;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -21,14 +18,31 @@ public class Helpers {
         PageFactory.initElements(driver, this);
     }
 
+    public Boolean waitIsPresent(By element) {
+        // wait.until(ExpectedConditions.visibilityOf(element));
+//        try {
+//            wait.until(ExpectedConditions.visibilityOf(element));
+//            return true;
+//        } catch (NoSuchElementException | TimeoutException e) {
+//            return false;
+//        }
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(element));
+        return true;
+    }
+
+
     public Boolean waitIsPresent(WebElement element) {
         // wait.until(ExpectedConditions.visibilityOf(element));
-        try {
-            wait.until(ExpectedConditions.visibilityOf(element));
-            return true;
-        } catch (TimeoutException e) {
-            return false;
-        }
+//        try {
+//            wait.until(ExpectedConditions.visibilityOf(element));
+//            return true;
+//        } catch (NoSuchElementException | TimeoutException e) {
+//            return false;
+//        }
+
+        wait.until(ExpectedConditions.visibilityOf(element));
+        return true;
     }
 
     public Boolean waitIsClickable(WebElement element) {

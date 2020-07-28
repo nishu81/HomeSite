@@ -41,10 +41,22 @@ public class HomeQuotePageTest extends TestBase {
         homePage.startAQuoteByZip("98012");
         homeQuotePage = new HomeQuotePage(driver);
         testData = new TestData(driver);
-        homeQuotePage.validationOfInputData(testData.getinvalidData(),testData.getinvalidPhone());
+      //  homeQuotePage.validationOfInputData(testData.getinvalidData(),testData.getinvalidPhone());
         Thread.sleep(8000);
     }
 
+
+    //To be used for warning message for invalid data- using Amod's HashMap Version
+    @Test
+    public void unsuccessfulRegisterACustomer_AmodHashMap() throws InterruptedException {
+        homePage = new HomePage(driver);
+        homePage.startAQuoteByZip("98012");
+        homeQuotePage = new HomeQuotePage(driver);
+        testData = new TestData(driver);
+        homeQuotePage.validationOfInputData(testData.valueErrorMapForDOBField());
+        homeQuotePage.validationOfInputData(testData.valueErrorMapForPhoneField());
+        Thread.sleep(8000);
+    }
     @AfterMethod
     public void tearDown() {
         helpers = new Helpers(driver);

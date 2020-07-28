@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class HomeQuotePage {
@@ -105,29 +106,55 @@ public class HomeQuotePage {
         return stateValue;
     }
 
-    /* public void validationOfInputData(WebElement element, String valueToBeTypes, String expectedErrorMessage)
-     {
+   public void validationOfInputDataValues(WebElement element, String valueToBeTypes, String expectedErrorMessage) throws InterruptedException {
          element.sendKeys(valueToBeTypes);
-         if(!expectedErrorMessage.equals(""))
-             Assert.assertTrue(driver.findElement(By.xpath("//div[contains(text(),'"+expectedErrorMessage+"')]")).isDisplayed());
+         if(expectedErrorMessage.equals("No error message"))
+         {
+             Assert.assertNull(dobError.getAttribute("aria-describedby").equals(null));
+         }
+             //Assert.assertFalse(driver.findElement(By.xpath("//div[contains(text(),'"+expectedErrorMessage+"')]")).isDisplayed());
+         else {
 
-     }*/
-    public void validationOfInputData(ArrayList<String> incorrectDates,ArrayList<String> incorrectPhones) throws InterruptedException {
-        for (String invalidDate : incorrectDates) {
-           dobField.sendKeys(invalidDate);
-           Thread.sleep(3000);
-           helpers.waitIsPresent(dobError);
-           Assert.assertTrue(dobError.isDisplayed());
-           dobField.clear();
+             helpers.waitIsPresent(By.xpath("//div[contains(text(),'" + expectedErrorMessage + "')]"));
+             Thread.sleep(3000);
+            // Assert.assertTrue(driver.findElement(By.xpath("//div[contains(text(),'" + expectedErrorMessage + "')]")).isDisplayed());
+         }
+
+
+     }
+    public void validationOfInputData(HashMap<String, String> incorrectDates) throws InterruptedException {
+        Set<String> keySets = incorrectDates.keySet();
+        for (String invalidDate : keySets) {
+//           dobField.sendKeys(invalidDate);
+//           Thread.sleep(3000);
+//           helpers.waitIsPresent(dobError);
+//           //Assert.assertTrue(dobError.isDisplayed());
+//            Assert.assertTrue(driver.findElement(By.xpath("//div[contains(text(),'"+expectedErrorMessage+"')]")).isDisplayed());
+//           dobField.clear();
+            helpers.waitIsPresent(dobField);
+            validationOfInputDataValues(dobField, invalidDate, incorrectDates.get(invalidDate));
+            dobField.clear();
         }
-        for (String invalidPhone : incorrectPhones) {
+       /* for (String invalidPhone : incorrectPhones) {
             phoneField.sendKeys(invalidPhone);
             Thread.sleep(3000);
             helpers.waitIsPresent(phoneError);
             Assert.assertTrue(phoneError.isDisplayed());
             phoneField.clear();
+        }*/
+        for (String invalidDate : keySets) {
+            helpers.waitIsPresent(phoneField);
+            validationOfInputDataValues(phoneField, invalidDate, incorrectDates.get(invalidDate));
+            phoneField.clear();
         }
-
     }
 
+   /* // No use of this method
+    public void verifyDataValidationForDOB(Map<String, String> map) throws InterruptedException {
+        for(String  k : map.keySet())
+        {
+            validationOfInputDataValues(dobField,k, map.get(k));
+        }
+    }
+*/
 }

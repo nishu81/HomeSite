@@ -2,6 +2,7 @@ package Test;
 
 import Pages.HomeQuotePage;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,5 +76,20 @@ public class TestData {
         return ar;
     }
 
+    //HashMap for Error validation of Date
+    public HashMap<String, String> valueErrorMapForDOBField() {
+        HashMap<String, String> wrongData = new HashMap<String, String>();
+        wrongData.put("23/05", "Please enter a date between");
+        wrongData.put("01/01/2002", "No error message");
+        return wrongData;
+    }
+
+    //HashMap for Error validation  Phone
+    public HashMap<String, String> valueErrorMapForPhoneField() {
+        HashMap<String, String> wrongData = new HashMap<String, String>();
+        wrongData.put("abc", "Please enter a valid phone number.");
+        wrongData.put("#12", "Please enter a valid phone number.");
+        return wrongData;
+    }
 
 }
